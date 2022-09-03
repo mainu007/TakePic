@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "926392155943",
+    "project_id": "react-native-dev-c1202",
+    "storage_bucket": "react-native-dev-c1202.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926392155943:android:f58b14f56bb8b84c093302",
+        "android_client_info": {
+          "package_name": "com.takepic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926392155943-snaqia4ku1aue8839veunbps428gep0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJX43CuKd95Dgu8QvIZ_JXSS3YQvn1c48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926392155943-snaqia4ku1aue8839veunbps428gep0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
