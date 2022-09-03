@@ -1,13 +1,12 @@
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import React, { useState } from 'react';
-import { ActivityIndicator, Alert, Image, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, Image, Modal, StyleSheet, Text, View } from 'react-native';
 import ButtonOutline from '../components/ButtonOutline';
 import { Colors } from '../constants/Colors';
 
 export default function ImageDetails({route, navigation}) {
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const [deleteButtonVisible, setDeleteButtonVisible] = useState(true);
   const {id, title, imageUri} = route.params;
 
   const deleteHandler = () => {
@@ -23,7 +22,6 @@ export default function ImageDetails({route, navigation}) {
 
   const deletePost = (postId) => {
     setDeleteLoading(true);
-    setDeleteButtonVisible(false);
 
     firestore()
       .collection('pictures')
@@ -60,7 +58,6 @@ export default function ImageDetails({route, navigation}) {
       .doc(postId)
       .delete()
       .then(() => {
-        setDeleteLoading(false);
         Alert.alert(
           'Image deleted!',
           'Your image has been deleted successfully!',
@@ -68,19 +65,23 @@ export default function ImageDetails({route, navigation}) {
         );
       })
       .catch((e) => {
-        setDeleteButtonVisible(true);
         console.log('Error deleting image.', e);
       });
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {opacity: deleteLoading ? .25 : 1}]}>
+      <Modal visible={deleteLoading} transparent={true}>
+        <View style={styles.modelContainer}>
+          <ActivityIndicator size="large" color={Colors.primary200} />
+        </View>
+      </Modal>
       <Text style={styles.title}>{title}</Text> 
       <View style={styles.imageContainer}>
         <Image source={{uri: imageUri}} style={styles.image} />
       </View>
       <View style={styles.buttonContainer}>
-        {deleteLoading && <ActivityIndicator size="large" color={Colors.primary200} />}{deleteButtonVisible && <ButtonOutline onPress={deleteHandler} color="red" title="Remove" />}
+        <ButtonOutline onPress={deleteHandler} color="red" title="Remove" />
       </View>
     </View>
   );
@@ -91,6 +92,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 12,
     paddingTop: 24,
+  },
+  modelContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   title: {
     fontSize: 24,

@@ -1,7 +1,9 @@
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {Image, Pressable, StyleSheet} from 'react-native';
-import {Colors} from '../constants/Colors';
+import { Pressable, StyleSheet } from 'react-native';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Bar';
+import { Colors } from '../constants/Colors';
 
 export default function ImageItem({id, imageUri, title}) {
   const navigation = useNavigation();
@@ -11,7 +13,7 @@ export default function ImageItem({id, imageUri, title}) {
 
   return (
     <Pressable onPress={pressHandler} style={styles.container}>
-      <Image source={{uri: imageUri}} style={styles.image} />
+      <Image source={{uri: imageUri}} style={styles.image}   indicator={ProgressBar} />
     </Pressable>
   );
 }
