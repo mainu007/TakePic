@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 12,
-    paddingTop: 24,
+    paddingTop: 12,
   },
   modelContainer: {
     flexGrow: 1,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   imageContainer: {
-    height: 300,
+    height: 320,
     marginBottom: 16,
   },
   image: {

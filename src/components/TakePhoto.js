@@ -1,7 +1,7 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Colors} from '../constants/Colors';
+import { Colors } from '../constants/Colors';
 import IconButton from './IconButton';
 
 export default function TakePhoto({imageUri, onOpenCamera}) {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: Colors.gray600,
     borderRadius: 6,
-    height: 220,
+    height: 300,
     justifyContent: 'center',
     marginBottom: 12,
     overflow: 'hidden',

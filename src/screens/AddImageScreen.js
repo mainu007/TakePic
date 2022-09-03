@@ -25,8 +25,8 @@ export default function AddImage({navigation}) {
 
   const openCamera = async () => {
     ImagePicker.openCamera({
-      width: 720,
-      height: 576,
+      width: 625,
+      height: 625,
       cropping: true,
     }).then(image => {
       console.log(image);
