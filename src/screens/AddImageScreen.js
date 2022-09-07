@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, ScrollView, StyleSheet, Text, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import {useDispatch} from 'react-redux';
+import {addPost} from '../app/postSlice';
 import ButtonOutline from '../components/ButtonOutline';
 import TakePhoto from '../components/TakePhoto';
 import TitleInput from '../components/TitleInput';
-import { Colors } from '../constants/Colors';
-import addPost from '../utils/addPost';
+import {Colors} from '../constants/Colors';
+import postData from '../utils/postData';
 import uploadFile from '../utils/uploadFile';
 
 export default function AddImage({navigation}) {
@@ -21,7 +17,7 @@ export default function AddImage({navigation}) {
   const [imageFile, setImageFile] = useState({});
   const [transferred, setTransferred] = useState(0);
   const [uploading, setUploading] = useState(false);
-;
+  const dispatch = useDispatch();
 
   const openCamera = async () => {
     ImagePicker.openCamera({
@@ -38,8 +34,9 @@ export default function AddImage({navigation}) {
   const saveHandler = async () => {
     setUploading(true);
     const dbImageUri = await uploadFile({...imageFile, setTransferred});
-    await addPost({title, imageUri: dbImageUri});
+    const data = await postData({title, imageUri: dbImageUri});
     setUploading(false);
+    dispatch(addPost(data));
     navigation.navigate('Home');
   };
 
@@ -59,16 +56,10 @@ export default function AddImage({navigation}) {
         {uploading ? (
           <View>
             <ActivityIndicator size="large" color={Colors.primary200} />
-            <Text style={styles.uploadProgressText}>
-              {transferred} % Completed!
-            </Text>
+            <Text style={styles.uploadProgressText}>{transferred} % Completed!</Text>
           </View>
         ) : (
-          <ButtonOutline
-            title="Save"
-            onPress={saveHandler}
-            disabled={buttonDisabled}
-          />
+          <ButtonOutline title="Save" onPress={saveHandler} disabled={buttonDisabled} />
         )}
       </View>
     </ScrollView>
